@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_commerce_app/modules/home/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         builder:(context,state)
           {
             var cubit =HomeCubit.get(context);
-            return Scaffold(
+            return  Scaffold(
               appBar: AppBar(
                 title: const Text("hello"),
                 actions: [
@@ -27,7 +28,19 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              body: ConditionalBuilder(
+                condition:cubit.homeModel!=null,
+                builder: (context){
+
+                  return Container();
+                },
+                fallback: (context)=>const Center(child: CircularProgressIndicator()),
+
+              ),
             );
+
+
+
           }
       ),
     );
