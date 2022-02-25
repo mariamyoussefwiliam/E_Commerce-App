@@ -118,33 +118,35 @@ Widget noInternet(context) => BlocConsumer<LayoutCubit, LayoutStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Lottie.asset('assets/no internet.json',
-                  width: MediaQuery.of(context).size.width / 1, height: 400),
-              const Text(
-                'Check Internet Connection',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                width: 150,
-                child: customMaterialButton(
-                    text: 'Retry',
-                    onPressed: () {
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset('assets/no internet.json',
+                    width: MediaQuery.of(context).size.width / 1, height: 400),
+                const Text(
+                  'Check Internet Connection',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                  width: 150,
+                  child: customMaterialButton(
+                      text: 'Retry',
+                      onPressed: () {
 
-                      LayoutCubit.get(context).checkInternetConnection();
-                      if(connected==false)
-                        {
-                          showToast(message: "no internet connection");
-                        }
-                    }),
-              ),
-            ],
+                        LayoutCubit.get(context).checkInternetConnection();
+                        if(connected==false)
+                          {
+                            showToast(message: "no internet connection");
+                          }
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
       ),

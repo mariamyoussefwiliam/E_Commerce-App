@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/no%20internet/no_internet.dart';
+import 'package:e_commerce_app/shared/component/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -253,11 +254,6 @@ class RegisterScreen extends StatelessWidget {
                           customMaterialButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-// print(nameController.text);
-// print(emailController.text);
-// print(passwordController.text);
-// print(confirmPassController.text);
-// print(phoneController.text);
                                   if (passwordController.text !=
                                       confirmPassController.text) {
                                     showToast(
@@ -266,11 +262,19 @@ class RegisterScreen extends StatelessWidget {
                                       color: Colors.red,
                                     );
                                   }
-                                  cubit.userRegister(
-                                      userName: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      phone: phoneController.text);
+                                  if(connected==true)
+                                  {
+                                    cubit.userRegister(
+                                        userName: nameController.text,
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                        phone: phoneController.text);
+                                  }
+                                  else
+                                  {
+                                    showToast(message: "no internet connection",color: primaryColor);
+                                  }
+
                                 }
                               },
                               text: "Register"),

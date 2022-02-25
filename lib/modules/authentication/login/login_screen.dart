@@ -169,9 +169,7 @@ class LoginScreen extends StatelessWidget {
                                     validate: (value) {
                                       if (value!.isEmpty) {
                                         return 'Password Must Be Not Empty';
-                                      } else if (!cubit.hasPasswordNumber) {
-                                        return 'Please, Enter A valid Password';
-                                      } else if (!cubit.isPasswordCharacters) {
+                                      }  else if (!cubit.isPasswordCharacters) {
                                         return 'please, Enter a 6 characters';
                                       }
                                       return null;
@@ -199,16 +197,17 @@ class LoginScreen extends StatelessWidget {
                               text: 'Login',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  //print(emailController.text);
-                                  //print(passwordController.text);
-                                  cubit.userLogin(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                                  //CacheHelper.put(key: "token", value:cubit.model!.token);
-                                  //   navigatorAndRemove(
-                                  //       context, ZoomDrawerScreen());
-                                  // }
+                                 if(connected==true)
+                                   {
+                                     cubit.userLogin(
+                                       email: emailController.text,
+                                       password: passwordController.text,
+                                     );
+                                   }
+                                 else
+                                   {
+                                     showToast(message: "no internet connection",color: primaryColor);
+                                   }
                                 }
                               }),
                           SizedBox(

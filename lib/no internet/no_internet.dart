@@ -23,10 +23,7 @@ class NoInternet extends StatelessWidget {
         return OfflineBuilder(
           connectivityBuilder: (context, connectivity, child) {
             connected = connectivity != ConnectivityResult.none;
-            if(connected==false)
-              {
-                LayoutCubit.get(context).checkInternetConnection();
-              }
+
             return SafeArea(
               child: Scaffold(
                 body: Stack(

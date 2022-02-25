@@ -53,15 +53,11 @@ class LoginCubit extends Cubit<LoginStates> {
   bool hasEmailValid = false;
 
   onPasswordChanged(String password) {
-    final numericRegex = RegExp(r'[0-9]');
     isPasswordCharacters = false;
     if (password.length >= 6) {
       isPasswordCharacters = true;
     }
-    hasPasswordNumber = false;
-    if (numericRegex.hasMatch(password)) {
-      hasPasswordNumber = true;
-    }
+
   }
 
   onEmailChanged(String email) {
