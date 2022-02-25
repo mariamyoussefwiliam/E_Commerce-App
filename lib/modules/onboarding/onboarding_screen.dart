@@ -1,15 +1,13 @@
+import 'package:e_commerce_app/no%20internet/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-
-import '../../layout/layout.dart';
 import '../../models/onBoarding_model.dart';
 import '../../shared/component/component.dart';
 import '../../shared/network/local/cache_helper.dart';
 import '../../shared/styles/colors.dart';
-import '../authertication/login/login_screen.dart';
-import '../authertication/register/register_screen.dart';
+import '../authentication/login/login_screen.dart';
+import '../authentication/register/register_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -40,10 +38,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Layout(
+      body: NoInternet(
         widget: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),

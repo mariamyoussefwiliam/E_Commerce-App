@@ -1,11 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:e_commerce_app/layout/layout.dart';
+import 'package:e_commerce_app/modules/authentication/login/login_screen.dart';
 import 'package:e_commerce_app/modules/home/home_screen.dart';
+import 'package:e_commerce_app/no%20internet/no_internet.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/component/constants.dart';
 import '../../shared/network/local/cache_helper.dart';
-import '../authertication/login/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,14 +15,15 @@ class SplashScreen extends StatelessWidget {
     userToken = CacheHelper.get(key: "token");
     return AnimatedSplashScreen(
       splash: const Image(
-        image: AssetImage("assets/images/logo.png"),
-        width: 120,
-        height: 25,
-      //  fit: BoxFit,
+        image: AssetImage("assets/images/logo.gif"),
+       fit: BoxFit.cover,
+        width: 250,
+        height: 250,
+        //  fit: BoxFit,
       ),
       nextScreen: userToken == null
           ? LoginScreen()
-          : const Layout(
+          : const NoInternet(
               widget: HomeScreen(),
             ),
       splashTransition: SplashTransition.fadeTransition,

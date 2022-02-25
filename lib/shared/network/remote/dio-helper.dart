@@ -1,9 +1,13 @@
+
+
 import 'package:dio/dio.dart';
 import 'dart:ui' as ui;
 
 import 'package:e_commerce_app/shared/component/constants.dart';
+
 class DioHelper {
   static late Dio dio;
+
   static init() {
     dio = Dio(
       BaseOptions(
@@ -16,8 +20,7 @@ class DioHelper {
     );
   }
 
-
-   static String sysLng = ui.window.locale.languageCode;
+  static String sysLng = ui.window.locale.languageCode;
 
   static Future<Response> postData({
     required String url,
@@ -30,7 +33,6 @@ class DioHelper {
       'lang': sysLng,
       'Content-Type': 'application/json',
     };
-
     return await dio.post(url, queryParameters: query, data: data);
   }
 
@@ -39,8 +41,6 @@ class DioHelper {
     Map<String, dynamic>? query,
     String? token,
   }) async {
-
-
     dio.options.headers = {
       'lang': sysLng,
       'Authorization': 'Bearer $userToken',
@@ -51,7 +51,4 @@ class DioHelper {
       queryParameters: query,
     );
   }
-
-
-
 }

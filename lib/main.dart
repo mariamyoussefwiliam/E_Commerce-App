@@ -1,8 +1,4 @@
-import 'dart:io';
-import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/layout/cubit/cubit.dart';
-import 'package:e_commerce_app/modules/home/cubit/cubit.dart';
-import 'package:e_commerce_app/shared/component/constants.dart';
+import 'package:e_commerce_app/no%20internet/cubit/cubit.dart';
 import 'package:e_commerce_app/shared/network/local/cache_helper.dart';
 import 'package:e_commerce_app/shared/network/remote/dio-helper.dart';
 import 'package:e_commerce_app/shared/observer.dart';
@@ -11,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'modules/onboarding/onboarding_screen.dart';
 import 'modules/splash/splash_screen.dart';
 void main() async {

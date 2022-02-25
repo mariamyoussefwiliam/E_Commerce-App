@@ -1,5 +1,4 @@
-
-import 'package:e_commerce_app/models/register_model.dart';
+import 'package:e_commerce_app/models/user_model.dart';
 
 abstract class LoginStates {}
 
@@ -21,10 +20,12 @@ class LoginErrorState extends LoginStates {
 
 class LogOutState extends LoginStates {}
 
-class ChangeEyeState extends LoginStates{}
+class ChangeEyeState extends LoginStates {}
 
-class ChangeLoginState extends LoginStates{}
-class ChangeForgetPasswordState extends LoginStates{}
+class ChangeLoginState extends LoginStates {}
 
-class ChangeEmailValidateState extends LoginStates{}
-class ChangePasswordValidateState extends LoginStates{}
+class ChangeForgetPasswordState extends LoginStates {}
+
+class ChangeEmailValidateState extends LoginStates {}
+
+class ChangePasswordValidateState extends LoginStates {}

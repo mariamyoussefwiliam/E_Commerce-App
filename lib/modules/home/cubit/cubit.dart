@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:e_commerce_app/models/home_model.dart';
 import 'package:e_commerce_app/modules/home/cubit/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,13 +14,12 @@ class HomeCubit extends Cubit<HomeStates> {
   void getHomeData() {
     emit(GetHomeLoadingState());
     DioHelper.getData(url: home).then((value) {
-      homeModel =HomeModel.fromJson(value.data);
-      print(value.data);
+      homeModel = HomeModel.fromJson(value.data);
+      //print(value.data);
       emit(GetHomeSuccessState(homeModel!));
     }).catchError((error) {
-      print(error.toString());
+      // print(error.toString());
       emit(GetHomeErrorState(error.toString()));
-
     });
   }
 }

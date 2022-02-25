@@ -1,6 +1,6 @@
 
 
-import 'package:e_commerce_app/models/register_model.dart';
+import 'package:e_commerce_app/models/user_model.dart';
 abstract class RegisterStates {}
 
 class InitRegisterState extends RegisterStates {}
@@ -14,7 +14,7 @@ class RegisterSuccessState extends RegisterStates {
 }
 
 class RegisterErrorState extends RegisterStates {
-  final String error;
+  final  error;
 
   RegisterErrorState(this.error);
 }

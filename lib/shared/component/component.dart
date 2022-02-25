@@ -1,5 +1,6 @@
-import 'package:e_commerce_app/layout/cubit/cubit.dart';
-import 'package:e_commerce_app/layout/cubit/states.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/no%20internet/cubit/cubit.dart';
+import 'package:e_commerce_app/no%20internet/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -135,7 +136,12 @@ Widget noInternet(context) => BlocConsumer<LayoutCubit, LayoutStates>(
                 child: customMaterialButton(
                     text: 'Retry',
                     onPressed: () {
+
                       LayoutCubit.get(context).checkInternetConnection();
+                      if(connected==false)
+                        {
+                          showToast(message: "no internet connection");
+                        }
                     }),
               ),
             ],
@@ -195,4 +201,26 @@ Widget buildBoardingItem(BoardingModel model, context) => Column(
 void navigator(context, Widget widget) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 }
+
+Widget imageFromNetwork(
+    {required String url,
+      fit = BoxFit.cover,
+      double height = double.infinity,
+      double width = double.infinity}) {
+  return CachedNetworkImage(
+    imageUrl: url,
+    placeholder: (context, url) =>
+    const Center(child: CircularProgressIndicator()),
+    errorWidget: (context, url, error) => const Image(
+      image: AssetImage("assets/images/download.png"),
+      width: 120,
+      height: 25,
+      //  fit: BoxFit,
+    ),
+    fit: fit,
+    height: height,
+    width: width,
+  );
+}
+
 

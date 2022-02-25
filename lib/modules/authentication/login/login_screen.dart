@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/modules/home/home_screen.dart';
+import 'package:e_commerce_app/no%20internet/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,102 +23,105 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {
-          if (state is LoginSuccessState) {
-            if (state.userModel.success!) {
-              CacheHelper.put(key: "token", value: state.userModel.data!.token);
-              userToken = CacheHelper.get(key: "token");
-              navigatorAndRemove(
-                context,
-                const HomeScreen(),
-              );
-            } else {
-              showToast(
-                  message: "${state.userModel.message}", color: Colors.red);
-            }
-          } else if (state is LoginErrorState) {
-            showToast(message: state.error, color: Colors.red);
-          }
-        },
-        builder: (context, state) {
-          var cubit = LoginCubit.get(context);
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 350.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/background-Recovered.png',
-                          ),
-                          fit: BoxFit.fill),
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          left: 18.w,
-                          width: 70.w,
-                          height: 200.h,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/light-1.png'),
-                              ),
+    return NoInternet(
+      widget: Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocProvider(
+          create: (BuildContext context) => LoginCubit(),
+          child: BlocConsumer<LoginCubit, LoginStates>(
+            listener: (context, state) {
+              if (state is LoginSuccessState) {
+                if (state.userModel.success!) {
+                  CacheHelper.put(key: "token", value: state.userModel.data!.token);
+                  userToken = CacheHelper.get(key: "token");
+                  CacheHelper.put(key: "name", value: state.userModel.data!.user!.name!.split(' ')[0]);
+                  userName = CacheHelper.get(key: "name");
+                  navigatorAndRemove(
+                    context,
+                    const HomeScreen(),
+                  );
+                } else {
+                  showToast(
+                      message: "${state.userModel.message}", color: Colors.red);
+                }
+              } else if (state is LoginErrorState) {
+
+                showToast(message: state.error, color: Colors.red);
+              }
+            },
+            builder: (context, state) {
+              var cubit = LoginCubit.get(context);
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 350.h,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/background-Recovered.png',
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 90.w,
-                          width: 80.w,
-                          height: 150.h,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/light-2.png'),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          right: 30.w,
-                          top: 30.h,
-                          width: 80.w,
-                          height: 140.h,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/clock.png'),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 50.h),
-                            child: Center(
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40.sp,
-                                  fontWeight: FontWeight.bold,
+                            fit: BoxFit.fill),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 18.w,
+                            width: 70.w,
+                            height: 200.h,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/light-1.png'),
                                 ),
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          Positioned(
+                            left: 90.w,
+                            width: 80.w,
+                            height: 150.h,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/light-2.png'),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 30.w,
+                            top: 30.h,
+                            width: 80.w,
+                            height: 140.h,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/clock.png'),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            child: Container(
+                              margin: EdgeInsets.only(top: 50.h),
+                              child: Center(
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(30.0.w),
-                    child: Container(
+                    Padding(
+                      padding: EdgeInsets.all(30.0.w),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -168,7 +172,7 @@ class LoginScreen extends StatelessWidget {
                                       } else if (!cubit.hasPasswordNumber) {
                                         return 'Please, Enter A valid Password';
                                       } else if (!cubit.isPasswordCharacters) {
-                                        return 'please, Enter a 8 characters';
+                                        return 'please, Enter a 6 characters';
                                       }
                                       return null;
                                     },
@@ -195,8 +199,8 @@ class LoginScreen extends StatelessWidget {
                               text: 'Login',
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  print(emailController.text);
-                                  print(passwordController.text);
+                                  //print(emailController.text);
+                                  //print(passwordController.text);
                                   cubit.userLogin(
                                     email: emailController.text,
                                     password: passwordController.text,
@@ -240,14 +244,16 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
+      
+      
   }
 }

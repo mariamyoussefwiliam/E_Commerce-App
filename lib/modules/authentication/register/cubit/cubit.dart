@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:e_commerce_app/models/register_model.dart';
-import 'package:e_commerce_app/modules/authertication/register/cubit/state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce_app/models/user_model.dart';
+import 'package:e_commerce_app/modules/authentication/register/cubit/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/network/end_points.dart';
 import '../../../../shared/network/remote/dio-helper.dart';
@@ -19,6 +16,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   int loginStatus = 0;
   Map<String, dynamic>? test;
+  String error = "";
+
   void userRegister({
     required String userName,
     required String email,
@@ -33,15 +32,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
       'phone': phone,
       "role": "3",
     }).then((value) {
-
-      emit(RegisterSuccessState(registerModel!));
-      print(value.data.runtimeType);
+      //  print(value.data);
       registerModel = UserModel.fromJson(value.data);
-      print(registerModel!.message);
-
+      emit(RegisterSuccessState(registerModel!));
     }).catchError((onError) {
+      error = onError.response.data['message'];
 
-      emit(RegisterErrorState(onError.response!.data['message'].toString()));
+      emit(RegisterErrorState(error));
     });
   }
 
@@ -74,12 +71,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   onPasswordChanged(String password) {
-  //  final numericRegex = RegExp(r'[0-9]');
+    //  final numericRegex = RegExp(r'[0-9]');
     isPasswordCharacters = false;
-    if (password.length >= 7) {
+    if (password.length >= 6) {
       isPasswordCharacters = true;
     }
-
   }
 
   onEmailChanged(String email) {
@@ -96,7 +92,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   onPhoneChange(String phone) {
     hasPhonedNumber = false;
-    if (phone.length >= 10) {
+    if (phone.length >= 11) {
       hasPhonedNumber = true;
     }
   }
