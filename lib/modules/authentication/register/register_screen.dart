@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
                 }
               } else if (state is RegisterErrorState) {
                 showToast(
-                    message: state.error.message.toString(), color: Colors.red);
+                    message: state.error, color: Colors.red);
               }
             },
             builder: (context, state) {
