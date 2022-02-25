@@ -4,7 +4,6 @@ import 'package:e_commerce_app/shared/network/remote/dio-helper.dart';
 import 'package:e_commerce_app/shared/observer.dart';
 import 'package:e_commerce_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'modules/onboarding/onboarding_screen.dart';
@@ -12,8 +11,8 @@ import 'modules/splash/splash_screen.dart';
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
 
   await DioHelper.init();

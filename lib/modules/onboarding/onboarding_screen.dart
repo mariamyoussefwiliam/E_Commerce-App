@@ -20,7 +20,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   var boardController = PageController();
 
   bool isList = false;
-  // List Type of boarding model it contains the data of on boarding screen
   List<BoardingModel> boarding = [
     BoardingModel(
       title: 'Welcome',
@@ -43,69 +42,70 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         widget: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 10.0,
-                ),
-                const Spacer(flex: 2,),
-                SizedBox(
-                  height:  400.h ,
-                  child: PageView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    controller: boardController,
-                    onPageChanged: (int index) {
-                      if (index == boarding.length - 1) {
-                        setState(() {
-                          isList = true;
-                        });
-                      } else {
-                        setState(() {
-                          isList = false;
-                        });
-                      }
-                    },
-                    itemBuilder: (context, index) =>
-                        buildBoardingItem(boarding[index], context),
-                    itemCount: boarding.length,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 90.h,
                   ),
-                ),
-                // spacing
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SmoothPageIndicator(
-                        controller: boardController,
-                        effect: ExpandingDotsEffect(
-                          activeDotColor: primaryColor,
-                          dotColor: Colors.grey[400]!,
-                          dotHeight: 10,
-                          expansionFactor: 4,
-                          dotWidth: 10,
-                          spacing: 8.0,
-                        ),
-                        count: boarding.length),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                  SizedBox(
+                    height: 400,
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: boardController,
+                      onPageChanged: (int index) {
+                        if (index == boarding.length - 1) {
+                          setState(() {
+                            isList = true;
+                          });
+                        } else {
+                          setState(() {
+                            isList = false;
+                          });
+                        }
+                      },
+                      itemBuilder: (context, index) =>
+                          buildBoardingItem(boarding[index], context),
+                      itemCount: boarding.length,
+                    ),
+                  ),
+                  // spacing
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SmoothPageIndicator(
+                          controller: boardController,
+                          effect: ExpandingDotsEffect(
+                            activeDotColor: primaryColor,
+                            dotColor: Colors.grey[400]!,
+                            dotHeight: 10,
+                            expansionFactor: 4,
+                            dotWidth: 10,
+                            spacing: 8.0,
+                          ),
+                          count: boarding.length),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
 
-                // Create a horizontal line
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey,
-                ),
-                const Spacer(flex: 1,),
-
-                Column(children: [
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.grey,
+                  ),
+                  //const Spacer(flex: 1,),
+                  SizedBox(
+                    height: 50.h,
+                  ),
                   customMaterialButton(
                       onPressed: () {
                         CacheHelper.put(key: "onBoarding", value: true);
@@ -118,16 +118,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                   customMaterialButton(
                     onPressed: () {
-
                       CacheHelper.put(key: "onBoarding", value: true);
                       navigatorAndRemove(context, RegisterScreen());
                     },
                     text: 'Sign Up',
                     color: false,
                   ),
-                ],),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),
