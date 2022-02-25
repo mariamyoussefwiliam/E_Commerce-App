@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/styles/colors.dart';
 
-Widget item(model, index) {
+Widget item(model, index,{category=false}) {
   return Container(
     width: 150,
     decoration: BoxDecoration(
@@ -27,12 +27,12 @@ Widget item(model, index) {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            Text(
+            !category?Text(
               "${model.price}",
               style: const TextStyle(color: secondaryColor),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-            ),
+            ):Container(),
           ],
         ),
       ),
